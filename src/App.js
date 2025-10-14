@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import main_logo from './assets/TestLogo.svg'
 import {
@@ -135,15 +134,10 @@ const options = {
   }
 };
 
-const handleClick = (id) => {
-  const selected = patients.find((p) => String(p.id) === String(id));
-  console.log('Clicked ID:', id);
-  console.log('Selected patient:', selected);
-
-  if (selected) {
-    setSinglePatient(selected);
-    setSelectedPatientId(id);
-  }
+const handleClick = (index) => {
+  const selected = patients[index];
+  setSinglePatient(selected);
+  setSelectedPatientId(index);
 };
 
   return (
@@ -172,19 +166,20 @@ const handleClick = (id) => {
           </div>
       </header>
 
-      <aside>
-        <h2>Patients</h2>
-        <ul>
-          {patients.map((patient) => (
-          <li key={patient.id}
-        onClick={() => handleClick(patient.id)}
-        className={selectedPatientId === patient.id ? 'selected' : ''}>
-            <figure><img src={patient.profile_picture} alt={patient.name} /></figure>
-            <h2>{patient.name}<span>{patient.gender},{patient.age}</span></h2>
-          </li>
-            ))}
-        </ul>
-      </aside>
+    <aside>
+          <h2>Patients</h2>
+          <ul>
+            {patients.map((patient, index) => (
+            <li key={index}
+          onClick={() => handleClick(index)}
+          className={selectedPatientId === index ? 'selected' : ''}>
+              <figure><img src={patient.profile_picture} alt={patient.name} /></figure>
+              <h2>{patient.name}<span>{patient.gender},{patient.age}</span></h2>
+            </li>
+              ))}
+          </ul>
+        </aside>
+
 
     {singlePatient && (
       <div className='right_info'>
